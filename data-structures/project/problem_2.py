@@ -27,3 +27,43 @@ def find_files(suffix, path):
     coll = list()
     find_files_recursive(suffix, path, coll)
     return coll
+
+
+## Test 1
+file_path = 'testdir'
+absolute_file_path = os.path.abspath(file_path)
+print(find_files('.c', absolute_file_path))
+"""
+    [
+        'testdir/subdir3/subsubdir1/b.c', 
+        'testdir/t1.c', 
+        'testdir/subdir5/a.c', 
+        'testdir/subdir1/a.c'
+    ]
+"""
+## Test 2
+file_path = 'testdir/subdir1'
+absolute_file_path = os.path.abspath(file_path)
+print(find_files('.c', absolute_file_path))
+"""
+    [
+        'testdir/subdir1/a.c'
+    ]
+"""
+## Test 3
+file_path = 'testdir/subdir4'
+absolute_file_path = os.path.abspath(file_path)
+print(find_files('.c', absolute_file_path))
+"""
+    []
+"""
+## Test 3
+file_path = 'testdir'
+absolute_file_path = os.path.abspath(file_path)
+print(find_files('.gitkeep', absolute_file_path))
+"""
+    [
+        'testdir/subdir4/.gitkeep', 
+        'testdir/subdir2/.gitkeep'
+    ]
+"""
