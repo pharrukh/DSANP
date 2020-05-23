@@ -2,7 +2,8 @@ import unittest
 
 class Node:
 
-    def __init__(self, value):
+    def __init__(self, value, key):
+        self.key = key
         self.value = value
         self.next = None
         self.prev = None
@@ -74,19 +75,20 @@ class LRU_Cache(object):
 
     def set(self, key, value):
         # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item. 
-        if key not in self.dict:
-            node = Node(value)
+        if key in self.dict and value == self.dict[key].value:
+            existing_node = self.dict[key]
+            self.list.move_top(existing_node)
+        else:
+            node = Node(value, key)
             if self.size == self.capacity:
-                last_value = self.list.tail.value
-                del self.dict[last_value]
+                last_key = self.list.tail.key
+                del self.dict[last_key]
                 self.list.remove_last()
                 self.size -= 1
             self.dict[key] = node
             self.list.set(node)
             self.size += 1
-        else:
-            existing_node = self.dict[key]
-            self.list.move_top(existing_node)
+
 
     def __str__(self):
         string = ''
@@ -165,6 +167,17 @@ class LRU_CacheTests(unittest.TestCase):
         self.assertEqual(str(our_cache.list), '(100)->(123)->(190)->(90)->(46)->')
         self.assertEqual(our_cache.get(90), 90)
         self.assertEqual(str(our_cache.list), '(90)->(100)->(123)->(190)->(46)->')
+
+    def test__max_size(self):
+        our_cache=LRU_Cache(3)
+        our_cache.set(1,1)
+        our_cache.set(2,2)
+        our_cache.set(3,3)
+        our_cache.set(4,4)
+        self.assertEqual(our_cache.get(4), 4)   # Expected Value = 4
+        self.assertEqual(our_cache.get(1), -1)   # Expected Value = -1
+        our_cache.set(2,4)
+        self.assertEqual(our_cache.get(2), 4)   # Expected Value = 4 Your Output = 2
 
 if __name__ == '__main__':
     unittest.main()
