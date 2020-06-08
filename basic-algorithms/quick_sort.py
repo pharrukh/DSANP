@@ -3,20 +3,20 @@ import unittest
 def sort_a_little_bit(items, start_index, end_index):
     left_index = start_index
     partition_index = end_index
-    partition = items[partition_index]
+    partition = items[end_index]
 
-    while partition_index != left_index:
+    while left_index != partition_index:
         item = items[left_index]
 
         if item <= partition:
             left_index += 1
             continue
-        
+
         items[left_index] = items[partition_index-1]
         items[partition_index-1] = partition
         items[partition_index] = item
 
-        partition_index -= 1
+        partition_index-=1
 
     return partition_index
 
@@ -25,8 +25,8 @@ def sort_all(items, start_index, end_index):
         return
     
     partition_index = sort_a_little_bit(items, start_index, end_index)
-    sort_all(items, start_index, partition_index - 1)
-    sort_all(items, partition_index + 1, end_index)
+    sort_all(items, start_index, partition_index-1)
+    sort_all(items, partition_index+1, end_index)
 
 def quicksort(items):
     sort_all(items, 0, len(items)-1)
