@@ -3,10 +3,10 @@
 
 ### Efficiency
 
-- space   O(1)
+- space   O(n)
 - time    O(n)
 
-Space complexity is 1 as there only variables that do not depend on input.
+Space complexity is O(n) for collection size.
 Time complexity is O(n) as there is a single traversal.
 
 ### Code Design

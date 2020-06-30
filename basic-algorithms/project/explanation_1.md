@@ -3,11 +3,11 @@
 
 ### Efficiency
 
-- space   O(1)
+- space   O(n)
 - time    O(log(n))
 
-Space complexity is 1 because there is no call stack.
-Time complexity as every new guess is x/2 closer to the answer.
+Space complexity is O(n) for collection size.
+Time complexity is O(log(n)) as every new guess is x/2 closer to the answer.
 
 ### Code Design
 

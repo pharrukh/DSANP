@@ -1,12 +1,12 @@
-# Problem 3
-## Rearrange Array Elements
+# Problem 2
+## Search in a Rotated Sorted Array
 
 ### Efficiency
 
-- space   O(log(n))
+- space   O(n)
 - time    O(log(n))
 
-Space complexity is O(log(n)) because there is a call stack.
+Space complexity is O(n): O(n) for collection size and O(log(n)) for a call stack.
 Time complexity O(log(n)). Here is the break-down: O(log(n)) for pivot finding O(log(n/2)) for the left section and O(log(n/2)) for the right section.
 Thus the result is O(log(n)) + O(log(n/2)) + O(log(n/2)) which boils down to O(log(n)).
 
