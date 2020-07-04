@@ -11,29 +11,6 @@ class RouteTrie:
         # Similar to our previous example you will want to recursively add nodes
         # Make sure you assign the handler to only the leaf (deepest) node of this path
         # path_section = path_as_list[0]
-        # length = len(path_as_list)
-
-        # if path_section in self.root:
-        #     if length == 1:
-        #         self.root[path_section].handler = handler
-        #         return
-        # else:
-        #     self.root[path_section] = RouteTrieNode(path_section)
-        # node = self.root[path_section]
-        # for i, path_section in enumerate(path_as_list[1:]):
-        #     if path_section not in node.children:
-        #         if i + 1 == length - 1:
-        #             if path_section not in node.children:
-        #                 node.children[path_section] = RouteTrieNode(path_section, handler)
-        #             else:
-        #                 node.children[path_section].handler = handler
-        #             return
-        #         node.children[path_section] = RouteTrieNode(path_section)
-        #     else:
-        #         if i + 1 == length - 1:
-        #             node.children[path_section].handler = handler
-        #             return
-        #     node = node.children[path_section]
         current_node = self.root
         last_index = len(path_as_list) - 1
         for i, section in enumerate(path_as_list):
@@ -51,22 +28,6 @@ class RouteTrie:
     def find(self, path_as_list):
         # Starting at the root, navigate the Trie to find a match for this path
         # Return the handler for a match, or None for no match
-        # length = len(path_as_list)
-
-        # path_section = path_as_list[0]
-        # node = None
-        # if path_section in self.root:
-        #     node = self.root[path_section]
-        # else:
-        #     return node
-        # if length == 1:
-        #     return node
-        # for path_section in path_as_list[1:]:
-        #     if path_section in node.children:
-        #         node = node.children[path_section]
-        #     else:
-        #         return None
-        # return node
         current_node = self.root
         last_index = len(path_as_list) - 1
         for i, section in enumerate(path_as_list):
