@@ -1,5 +1,6 @@
 import unittest
 
+
 def fill_suffixes(arr, string, node):
     if node.is_word and string != '':
         arr.append(string)
@@ -44,6 +45,10 @@ class Trie:
                 if i == last_index:
                     is_last = True
                 current_node.insert(char, is_last)
+            else:
+                if i == last_index:
+                    current_node.children[char].is_word = True
+                    return
             current_node = current_node.children[char]
 
     def find(self, prefix):
@@ -138,6 +143,32 @@ class Tests(unittest.TestCase):
         self.assertListEqual(
             ['hology', 'agonist', 'onym'], ant_suffixes)
 
+    def test_2_2(self):
+        trie = Trie()
+        word_list = [
+            "antonym", "antagonist", "anthology", "ant",
+        ]
+        for word in word_list:
+            trie.insert(word)
+
+        a_node = trie.find('a')
+        a_suffixes = a_node.suffixes()
+        a_suffixes.sort()
+        self.assertListEqual(
+            ['nt',  'ntagonist', 'nthology', 'ntonym'], a_suffixes)
+
+        an_node = trie.find('an')
+        an_suffixes = an_node.suffixes()
+        an_suffixes.sort()
+        self.assertListEqual(
+            ['t', 'tagonist','thology','tonym'], an_suffixes)
+
+        ant_node = trie.find('ant')
+        ant_suffixes = ant_node.suffixes()
+        ant_suffixes.sort()
+        self.assertListEqual(
+            ['agonist','hology',  'onym'], ant_suffixes)
+
     def test_3(self):
         trie = Trie()
         word_list = ["trie", "trigger", "trigonometry", "tripod"]
@@ -204,7 +235,6 @@ class Tests(unittest.TestCase):
         for word in word_list:
             trie.insert(word)
 
-
         w_node = trie.find('w')
         w_suffixes = w_node.suffixes()
         self.assertListEqual(["ily"], w_suffixes)
@@ -212,6 +242,7 @@ class Tests(unittest.TestCase):
         abj_node = trie.find('abj')
         abj_suffixes = abj_node.suffixes()
         self.assertListEqual(["ect", "ure"], abj_suffixes)
+
 
 if __name__ == '__main__':
     unittest.main()
