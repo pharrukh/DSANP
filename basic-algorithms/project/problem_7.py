@@ -63,7 +63,7 @@ class Router:
         # Add a handler for a path
         # You will need to split the path and pass the pass parts
         # as a list to the RouteTrie
-        path_as_list = self.split_path(path)
+        path_as_list = self._split_path(path)
         self.route_trie.insert(path_as_list, handler)
 
     def lookup(self, path):
@@ -76,13 +76,13 @@ class Router:
         # return the "not found" handler if you added one
         # bonus points if a path works with and without a trailing slash
         # e.g. /about and /about/ both return the /about handler
-        path_as_list = self.split_path(path)
+        path_as_list = self._split_path(path)
         node = self.route_trie.find(path_as_list)
         if not node or not node.handler:
             return self.not_found_handler
         return node.handler
 
-    def split_path(self, path):
+    def _split_path(self, path):
         # you need to split the path into parts for
         # both the add_handler and loopup functions,
         # so it should be placed in a function here
@@ -93,10 +93,10 @@ class Tests(unittest.TestCase):
 
     def test_0(self):
         router = Router()
-        self.assertListEqual(['home'], router.split_path('/home'))
-        self.assertListEqual(['home', 'about'], router.split_path('/home/about'))
-        self.assertListEqual(['home', 'about'], router.split_path('/home/about/'))
-        self.assertListEqual(['home', 'about', 'me'], router.split_path('/home/about/me'))
+        self.assertListEqual(['home'], router._split_path('/home'))
+        self.assertListEqual(['home', 'about'], router._split_path('/home/about'))
+        self.assertListEqual(['home', 'about'], router._split_path('/home/about/'))
+        self.assertListEqual(['home', 'about', 'me'], router._split_path('/home/about/me'))
 
     def test_1(self):
         router = Router("root handler", "not found handler")
